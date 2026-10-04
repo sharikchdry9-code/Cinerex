@@ -1,0 +1,204 @@
+/* =========================================================
+   CINEREX — PART 2 UI
+   ========================================================= */
+
+#movieModal {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+#movieModal.show {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(12px);
+}
+
+.movie-modal {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid #29292e;
+  border-radius: 18px;
+  background: #101013;
+  box-shadow: 0 30px 100px rgba(0,0,0,.8);
+  z-index: 2;
+  animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(.96) translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-cover {
+  height: 350px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.modal-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      #101013 0%,
+      rgba(16,16,19,.15) 60%,
+      transparent
+    );
+}
+
+.modal-content {
+  padding: 0 35px 35px;
+  margin-top: -80px;
+  position: relative;
+  z-index: 3;
+}
+
+.modal-label {
+  color: #e50914;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.modal-content h2 {
+  font-size: 42px;
+  letter-spacing: -2px;
+  margin-bottom: 12px;
+}
+
+.modal-meta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+
+.modal-meta strong {
+  color: #ffd84d;
+}
+
+.modal-content p {
+  max-width: 650px;
+  color: #bbb;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.modal-play,
+.modal-list {
+  border: 0;
+  border-radius: 7px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.modal-play {
+  background: white;
+  color: black;
+}
+
+.modal-list {
+  background: #29292e;
+  color: white;
+}
+
+.modal-list.active {
+  background: #e50914;
+}
+
+.modal-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0,0,0,.65);
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+#cinerexToast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 20px);
+  z-index: 9999;
+  padding: 13px 20px;
+  border-radius: 9px;
+  background: #19191d;
+  border: 1px solid #333339;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+#cinerexToast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 700px) {
+
+  #movieModal {
+    padding: 12px;
+  }
+
+  .movie-modal {
+    max-height: 94vh;
+    border-radius: 14px;
+  }
+
+  .modal-cover {
+    height: 260px;
+  }
+
+  .modal-content {
+    padding: 0 20px 25px;
+    margin-top: -50px;
+  }
+
+  .modal-content h2 {
+    font-size: 30px;
+  }
+
+}
