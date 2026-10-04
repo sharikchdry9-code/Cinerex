@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CINEREX — Premium Cinema</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #070708;
+      --panel: #111114;
+      --text: #f5f5f5;
+      --muted: #99999f;
+      --accent: #e50914;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 76px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,.95),
+        rgba(0,0,0,.35),
+        transparent
+      );
+      transition: .3s;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      margin-left: 35px;
+      flex: 1;
+    }
+
+    .nav-links a {
+      color: #d5d5d5;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .search {
+      width: 210px;
+      height: 38px;
+      padding: 0 15px;
+      border: 1px solid #333338;
+      outline: none;
+      border-radius: 8px;
+      background: rgba(20,20,23,.85);
+      color: white;
+    }
+
+    .profile {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#e50914,#74101a);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    /* HERO */
+
+    .hero {
+      height: 720px;
+      min-height: 680px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 7%;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.95) 0%,
+          rgba(0,0,0,.72) 38%,
+          rgba(0,0,0,.15) 75%,
+          rgba(0,0,0,.85) 100%
+        ),
+        linear-gradient(
+          0deg,
+          #070708 0%,
+          transparent 30%
+        ),
+        url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      padding-top: 80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 20px;
+      color: #ddd;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: .9;
+      letter-spacing: -5px;
+      font-weight: 900;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .meta {
+      display: flex;
+      gap: 18px;
+      color: #ddd;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .description {
+      color: #c5c5c8;
+      line-height: 1.7;
+      max-width: 570px;
+      font-size: 15px;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 13px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .btn-primary {
+      background: white;
+      color: black;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #e9e9e9;
+    }
+
+    .btn-secondary {
+      background: rgba(80,80,85,.65);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(110,110,115,.75);
+    }
+
+    /* CONTENT */
+
+    main {
+      position: relative;
+      margin-top: -100px;
+      z-index: 5;
+    }
+
+    .section {
+      padding: 0 5% 50px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      font-size: 23px;
+      letter-spacing: -.7px;
+    }
+
+    .section-title a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .movies {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+    }
+
+    .movie {
+      position: relative;
+      aspect-ratio: 2 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #151519;
+      cursor: pointer;
+      transition:
+        transform .3s,
+        box-shadow .3s;
+    }
+
+    .movie:hover {
+      transform: scale(1.045);
+      z-index: 10;
+      box-shadow: 0 18px 50px rgba(0,0,0,.65);
+    }
+
+    .movie img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .movie-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,.95),
+          rgba(0,0,0,.15) 55%,
+          transparent
+        );
+    }
+
+    .movie-title {
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .movie-info {
+      font-size: 11px;
+      color: #bbb;
+    }
+
+    .rating {
+      color: #ffd84d;
+    }
+
+    /* GENRES */
+
+    .genres {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .genre {
+      flex: 0 0 auto;
+      padding: 11px 17px;
+      border: 1px solid #28282d;
+      background: #101013;
+      border-radius: 100px;
+      color: #ccc;
+      font-size: 13px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .genre:hover {
+      background: #1c1c20;
+      color: white;
+      border-color: #444;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid #18181c;
+      margin-top: 40px;
+      padding: 45px 5%;
+      color: #777;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    footer strong {
+      color: #ddd;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1100px) {
+      .movies {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        padding: 0 20px;
+      }
+
+      .search {
+        width: 130px;
+      }
+
+      .hero {
+        height: 650px;
+        min-height: 650px;
+        padding: 0 25px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .movies {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .section {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">CINE<span>REX</span></div>
+
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Movies</a>
+      <a href="#">Series</a>
+      <a href="#">Trending</a>
+      <a href="#">My List</a>
+    </nav>
+
+    <div class="nav-right">
+      <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="Search movies..."
+      />
+      <div class="profile">C</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        <span class="dot"></span>
+        Cinerex Original
+      </div>
+
+      <h1>THE<br><span>LAST</span><br>HORIZON</h1>
+
+      <div class="meta">
+        <span>2026</span>
+        <span>16+</span>
+        <span>2h 18m</span>
+        <span>4K</span>
+      </div>
+
+      <p class="description">
+        Beyond the edge of civilization lies a world nobody was meant to find.
+        A cinematic journey through mystery, survival and the unknown.
+      </p>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="playMovie()">
+          ▶ Play Now
+        </button>
+
+        <button class="btn btn-secondary" onclick="addToList()">
+          ＋ My List
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <main>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Trending Now</h2>
+        <a href="#">View all →</a>
+      </div>
+
+      <div class="movies" id="movieGrid">
+
+        <article class="movie" data-title="The Last Horizon">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">The Last Horizon</div>
+            <div class="movie-info">
+              2026 · <span class="rating">★ 8.9</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="movie" data-title="Midnight City">
+          <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Midnight City</div>
+            <div class="movie-info">
+              2026 · <span class="rating">★ 8.6</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="movie" data-title="Dark Signal">
+          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Dark Signal</div>
+            <div class="movie-info">
+              2025 · <span class="rating">★ 8.4</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="movie" data-title="After Earth">
+          <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">After Earth</div>
+            <div class="movie-info">
+              2025 · <span class="rating">★ 8.1</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="movie" data-title="Neon Dreams">
+          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Neon Dreams</div>
+            <div class="movie-info">
+              2026 · <span class="rating">★ 8.7</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="movie" data-title="Lost Planet">
+          <img src="https://images.unsplash.com/photo-1534791547706-3c7b0b5b5c0f?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Lost Planet</div>
+            <div class="movie-info">
+              2025 · <span class="rating">★ 8.3</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Explore by Genre</h2>
+      </div>
+
+      <div class="genres">
+        <div class="genre">Action</div>
+        <div class="genre">Adventure</div>
+        <div class="genre">Sci-Fi</div>
+        <div class="genre">Thriller</div>
+        <div class="genre">Drama</div>
+        <div class="genre">Comedy</div>
+        <div class="genre">Horror</div>
+        <div class="genre">Romance</div>
+        <div class="genre">Animation</div>
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="section-title">
+        <h2>New Releases</h2>
+        <a href="#">View all →</a>
+      </div>
+
+      <div class="movies">
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Silent Pages</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.2</span></div>
+          </div>
+        </article>
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Into The Wild</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.5</span></div>
+          </div>
+        </article>
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1483412033650-1015ddeb83d1?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Echoes</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.0</span></div>
+          </div>
+        </article>
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">The Journey</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.8</span></div>
+          </div>
+        </article>
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">Beyond</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.4</span></div>
+          </div>
+        </article>
+
+        <article class="movie">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=700&q=85">
+          <div class="movie-overlay">
+            <div class="movie-title">North</div>
+            <div class="movie-info">2026 · <span class="rating">★ 8.6</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div><strong>CINEREX</strong> — Premium Cinema Experience</div>
+    <div>© 2026 Cinerex. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function playMovie() {
+      alert("Player will open here when a licensed/public-domain video is connected.");
+    }
+
+    function addToList() {
+      alert("Added to My List.");
+    }
+
+    const search = document.getElementById("search");
+    const movies = document.querySelectorAll(".movie");
+
+    search.addEventListener("input", () => {
+      const query = search.value.toLowerCase().trim();
+
+      movies.forEach(movie => {
+        const title = movie.dataset.title?.toLowerCase() || "";
+        movie.style.display =
+          title.includes(query) ? "block" : "none";
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      const nav = document.querySelector(".navbar");
+
+      if (window.scrollY > 50) {
+        nav.style.background = "rgba(7,7,8,.94)";
+        nav.style.backdropFilter = "blur(16px)";
+      } else {
+        nav.style.background =
+          "linear-gradient(to bottom, rgba(0,0,0,.95), rgba(0,0,0,.35), transparent)";
+        nav.style.backdropFilter = "none";
+      }
+    });
+  </script>
+
+</body>
+</html>
